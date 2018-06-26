@@ -1,0 +1,9 @@
+.background-container {
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}

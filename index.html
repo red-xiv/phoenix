@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="styles/particles.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id='background-container'>
+
+    </div>
+
+    <canvas id="background-canvas"></canvas>
+    <canvas id="text-canvas"></canvas>
+    <canvas id="game-canvas"></canvas>
+
+    <!-- <object id="phoenix" data="img/phoenix.svg" type="image/svg+xml">
+        Your browser doesn't support SVG :(
+    </object> -->
+  <!-- <script src="program.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.js"></script>
+  <script src="js/particles.js"></script>
+  <script>
+    (() => {
+        let phoenixSVG = ['phoenix'];
+
+        phoenixSVG.forEach((el,i) => {
+                document.getElementById(el).addEventListener('load', (event) => {
+                    
+                    // todo : update state method, animation loop, dom input for scale
+                    console.log(`loaded svg: ${event.target.data}`)
+                    let svgDoc = event.target.contentDocument;
+
+                }, false);
+        });
+    })();
+</script>
+</body>
+
+</html>
