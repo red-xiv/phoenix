@@ -1,0 +1,30 @@
+{
+    "name": "rise-of-the-phoenix",
+    "version": "1.0.1",
+    "description": "game to celebrate phoenix & geeks anniversery",
+    "keywords": [
+      "svg",
+      "geeks",
+      "phoenix",
+      "webgl"
+    ],
+    "authors": [
+        "James Johnstone <james.johnstone@geeks.ltd.uk>",
+        "Hajar Yazdani <hajar.yazdani@geeks.ltd.uk>"  
+    ],
+    "main": "index.html",
+    "licenses": [
+      {
+        "type": "copyright",
+        "url": "http://www.geeks.ltd.uk/"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/james-johnstone/rise-of-the-phoenix.git"
+    },
+    "devDependencies": {
+    },
+    "dependencies": {
+    }
+  }
