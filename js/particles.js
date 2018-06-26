@@ -1,3 +1,5 @@
+'use strict';
+
 (() => {
     const WIDTH = window.innerWidth;
     const HEIGHT = window.innerHeight;
@@ -328,18 +330,5 @@
     
     function getOriginDistance(x, y, z){
         return Math.sqrt((Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2)));
-    }
-    
-    document.onkeydown = (e) => {
-        if (e.keyCode == 32){
-            var overlays = document.getElementsByClassName('overlay');
-    
-            for(var i=0; i< overlays.length;i++){
-                overlays[i].remove();
-            }
-    
-            toggleShape();
-        }
-    }
-    
+    }    
     })();
