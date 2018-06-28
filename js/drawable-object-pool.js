@@ -25,7 +25,9 @@ class DrawableObjectPool
     draw() {
 		for (var i = 0; i < size; i++) {
 			if (pool[i].alive) {
-				if (pool[i].draw()) {
+				pool[i].updateState();
+				pool[i].draw();
+				if (pool[i].isOutOfBounds()) {
 					pool[i].clear();
 					pool.push((pool.splice(i,1))[0]);
 				}

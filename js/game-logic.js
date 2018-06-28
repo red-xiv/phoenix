@@ -26,6 +26,7 @@ class Game {
 		    this.start();
 
         this.phoenixCanvas = document.getElementById('phoenix-canvas');
+        
 		if (this.phoenixCanvas.getContext) {
 			this.phoenixCtx = this.phoenixCanvas.getContext('2d');
 			this.drawablesCtx = this.drawablesCanvas.getContext('2d');
@@ -45,7 +46,12 @@ class Game {
 
     animate() {
         window.requestAnimationFrame( this.animate );
+        this.updateState();
         this.draw();
+    }
+
+    updateState(){
+        //todo
     }
 
     draw(){
