@@ -1,3 +1,18 @@
 body {    
     margin: 0;
 }
+
+canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: transparent;
+}
+
+#background-container {
+    z-index: -1;
+}
+
+#phoenix-canvas {
+    z-index: 1;
+}
