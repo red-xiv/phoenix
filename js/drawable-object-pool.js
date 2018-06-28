@@ -16,7 +16,7 @@ class DrawableObjectPool
 	}
 
     getNew(x, y, speed) {
-		if(!pool[size - 1].isAlive()) {
+		if(!pool[size - 1].isAlive) {
 			pool[size - 1].spawn(x, y, speed);
 			pool.unshift(pool.pop());
 		}

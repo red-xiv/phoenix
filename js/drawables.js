@@ -8,10 +8,14 @@ class Drawable
         this.velocity = 0;
         this.width = width;
         this.height = height;
+        this.isAlive = false;
 	}
 
     init(){
+        let offSet = 20;
         
+        this.x = this.canvasContex.width + offSet;
+        this.y = Math.random() * this.canvasContex.height;
     }
 
 	draw() {
@@ -23,10 +27,6 @@ class Drawable
     }
 
     clear(){
-
-    }
-
-    isAlive(){
 
     }
 }
