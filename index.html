@@ -67,43 +67,40 @@
         </object>
     </div>
 
-    <canvas id="phoenix-canvas"></canvas> 
+    <canvas id="phoenix-canvas"></canvas>
+    <canvas id="drawables-canvas"></canvas> 
     
   <!-- <script src="program.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.js"></script>
   <script src="js/lib/snap.svg-min.js"></script>
-  <script src="js/particles.js"></script>
+  <script src="js/drawables.js"></script>
+  <script src="js/drawable-object-pool.js"></script>
+  <script src="js/image-loader.js"></script>
+  <script src="js//game-logic.js"></script>
   <script src="js/intro.js"></script>
+  <script src="js/particles.js"></script>
   <script src="js/phoenix.js"></script>
   <script>
 
   </script>
   <script>
     (() => {
+        let game = new Game();
         let phoenix = null;
-        let phoenixSVG = ['phoenix'];
         let phoenixColour = '#0fbca3';
-        let phoenixSize = "8s%";
+        let phoenixSize = "8%";
 
-        phoenixSVG.forEach((el,i) => {
-                document.getElementById(el).addEventListener('load', (event) => {
+        document.getElementById('phoenix').addEventListener('load', (event) => {
                     
                     // todo : update state method, animation loop, dom input for scale
-                    console.log(`loaded svg: ${event.target.data}`)
-                    let svgDoc = event.target.contentDocument;
+            console.log(`loaded svg: ${event.target.data}`)
+            let svgDoc = event.target.contentDocument;
 
-                    phoenix = new Phoenix(svgDoc.getElementById("phoenix"), phoenixSize, phoenixColour, phoenixColour);
-
-                    let animate = () => {
-                                requestAnimFrame(animate);
-                                phoenix.updatePlayerMovement();
-                            };
-                    
-                    animate();
-                }, false);
-        });
+            phoenix = new Phoenix(svgDoc.getElementById('phoenix'), phoenixSize, phoenixColour, phoenixColour);
+            game.init();
+        }, false);
     })();
 </script>
 </body>

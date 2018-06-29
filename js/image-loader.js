@@ -1,8 +1,5 @@
 class ImageLoader{
     loadAssets(){
-		if (!window.game)
-			throw new Error("you must load game class first..");
-	
 		let numberOfHazards = 9;
 		let numberOfCoins = 6;
 		this.coins = [];
@@ -26,11 +23,6 @@ class ImageLoader{
 			}
 		}
 		
-		this.coin.onload = function() {
-			this.imageLoaded();
-		}
-		this.coin.src = "assets/coin.png";
-
 		this.hazards.forEach((h,i) => {
 			h.onload = () => imageLoaded();
 			h.src = `assets/coin (${i+1}).png`;
@@ -38,7 +30,7 @@ class ImageLoader{
 		
 		this.hazards.forEach((h,i) => {
 			h.onload = () => imageLoaded();
-			h.src = `assets/hazzard (${i+1}).png`;
+			h.src = `assets/hazard (${i+1}).png`;
 		});
 	}
 }
