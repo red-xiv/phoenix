@@ -1,8 +1,8 @@
 class ImageLoader{
+	constructor(){
+		this.isLoaded = false;
+	}
     loadAssets(){
-		if (!window.game)
-			throw new Error("you must load game class first..");
-	
 		let numberOfHazards = 9;
 		let numberOfCoins = 6;
 		this.coins = [];
@@ -22,23 +22,18 @@ class ImageLoader{
 			numLoaded++;
 			
 			if (numLoaded === numImages) {
-				window.game.init();
+				this.isLoaded = true;
 			}
 		}
 		
-		this.coin.onload = function() {
-			this.imageLoaded();
-		}
-		this.coin.src = "assets/coin.png";
-
 		this.hazards.forEach((h,i) => {
-			h.onload = () => imageLoaded();
+			h.onload = () => this.imageLoaded();
 			h.src = `assets/coin (${i+1}).png`;
 		});
 		
 		this.hazards.forEach((h,i) => {
-			h.onload = () => imageLoaded();
-			h.src = `assets/hazzard (${i+1}).png`;
+			h.onload = () => this.imageLoaded();
+			h.src = `assets/hazard (${i+1}).png`;
 		});
 	}
 }

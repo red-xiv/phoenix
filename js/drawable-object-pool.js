@@ -2,34 +2,34 @@ class DrawableObjectPool
 {
     constructor(maxSize, drawableFunc) {
         this.size = maxSize;
-        this.pool = [];
+		this.pool = [];
+		this.drawableFunc = drawableFunc;
     }
 
 	init (){
-		for (var i = 0; i < size; i++) {
-			
-			var drawable = drawableFunc(i);
+		for (let i = 0; i < this.size; i++) {
+			let drawable = this.drawableFunc(i);
 
 			drawable.init();
-			pool[i] = drawable;
+			this.pool.push(drawable);
 		}
 	}
 
-    getNew(x, y, speed) {
-		if(!pool[size - 1].isAlive) {
-			pool[size - 1].spawn(x, y, speed);
-			pool.unshift(pool.pop());
+    getNew() {
+		if((!!this.pool[this.size - 1]) && (this.pool[this.size - 1].isAlive == false)) {
+			this.pool[this.size - 1].spawn();
+			this.pool.unshift(this.pool.pop());
 		}
 	}
 
     draw() {
-		for (var i = 0; i < size; i++) {
-			if (pool[i].alive) {
-				pool[i].updateState();
-				pool[i].draw();
-				if (pool[i].isOutOfBounds()) {
-					pool[i].clear();
-					pool.push((pool.splice(i,1))[0]);
+		for (let i = 0; i < this.size; i++) {
+			if (this.pool[i].isAlive) {
+				this.pool[i].updateState();
+				this.pool[i].draw();
+				if (this.pool[i].isOutOfBounds()) {
+					this.pool[i].clear();
+					this.pool.push((this.pool.splice(i,1))[0]);
 				}
 			}
 			else

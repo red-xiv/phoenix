@@ -10,32 +10,40 @@
     })();
 })();
 
-window.game = new Game();
-window.game.init();
-
 class Game {
     constructor(){
         this.coinSize = 12;
         this.hazardSize = 30;
+        this.numberOfCoins = 20;
+        this.numberOfHazards = 20;
     }    
     init() {
         this.imageLoader = new ImageLoader();
         this.imageLoader.loadAssets();
-
-	    if(this.shouldStart())
-		    this.start();
-
         this.phoenixCanvas = document.getElementById('phoenix-canvas');
+        this.drawablesCanvas = document.getElementById('drawables-canvas');
         
 		if (this.phoenixCanvas.getContext) {
 			this.phoenixCtx = this.phoenixCanvas.getContext('2d');
-			this.drawablesCtx = this.drawablesCanvas.getContext('2d');
+            this.drawablesCtx = this.drawablesCanvas.getContext('2d');
+            
+            // todo: > create hazard and coin funcs to enclose the context so this.context is bound right.
 			
-            this.hazardPool = this.imageLoader.hazards.forEach((h,i) => {
-                new DrawableObjectPool(2, (i) => new Hazard(this.imageLoader.hazards[i], 0, 0, this.hazardSize));
-            });
+            this.hazardPool = this.imageLoader.hazards.map((h,i) => 
+                new DrawableObjectPool(2, (i) => new Hazard(this.imageLoader.hazards[i], 0, 0, this.hazardSize, this.drawablesCtx))
+            );
 
-            this.coinPool = new DrawableObjectPool(20, () => new Coin(imageLoader.coin, 0, 0, this.coinSize));
+            this.coinPool = this.imageLoader.coins.map((h,i) => 
+                new DrawableObjectPool(2, (i) => new Coin(this.imageLoader.coins[i], 0, 0, this.coinSize, this.drawablesCtx))
+            );
+
+            this.hazardPool.concat(this.coinPool).forEach((p,i) => p.init());
+
+            this.getNewHazards();
+            this.getNewCoins();
+
+            if(this.shouldStart())
+		        this.start();
 
 			return true;
 		} 
@@ -44,22 +52,48 @@ class Game {
 		}
     }
 
+    getNewDrawables(numberOfDrawables, drawablePools){
+        let numberOfDifferentDrawables = numberOfDrawables / drawablePools.length;
+        let numberPerDrawable = numberOfDrawables / numberOfDifferentDrawables;
+
+        for (let i = 0; i < numberOfDifferentDrawables; i++){
+            let drawablePool = drawablePools[i];
+
+            for (let j =0; j < numberPerDrawable ; j++){
+                drawablePool.getNew();
+            }
+        }
+    }
+
+    getNewHazards(numberOfHazards){
+        this.getNewDrawables(numberOfHazards || this.numberOfHazards, this.hazardPool);
+    }
+
+
+    getNewCoins(numberOfCoins){
+        this.getNewDrawables(numberOfCoins || this.numberOfCoins, this.coinPool);
+    }
+
     animate() {
-        window.requestAnimationFrame( this.animate );
+        window.requestAnimationFrame(this.animate.bind(this));
         this.updateState();
         this.draw();
     }
 
     updateState(){
-        //todo
+        //todo phoenix update state and game visible state - object pool handles it's self
+        //todo drawableObjectPool > getNew when !IsAlive fluctuates below x? * log(this.gameLevel) ?
     }
 
     draw(){
-        //todo
+        //todo phoenix draw..
+        this.hazardPool.concat(this.coinPool).forEach((p,i) => p.draw());
     }
     shouldStart(){
+        return true; // todo maybe?
     }
-	start = function() {
-		animate();
+
+	start(){
+		this.animate();
 	};
 }
