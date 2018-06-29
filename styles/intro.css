@@ -23,14 +23,15 @@ body {
   cursor: pointer;
 }
 .intro-container .start span {
-  color: #c22199;
+  color: #13BDA5;
 }
 .intro-container .intro {
   width: 15em;
   margin: 0 0 0 -7.5em;
-  font-size: 200%;
+  font-size: 400%;
   font-weight: 400;
-  color: #4bd5ee;
+  text-align: center;
+  color: #13BDA5;
  
 }
 .intro-container .intro-fade {
@@ -46,18 +47,18 @@ body {
   bottom: 0;
   height: 50em;
   font-size: 350%;
-  text-align: justify;
+  text-align:justify; 
   overflow: hidden;
   -webkit-transform-origin: 50% 100%;
           transform-origin: 50% 100%;
-  -webkit-transform: perspective(300px) rotateX(25deg);
-  transform: perspective(300px) rotateX(25deg);
+  -webkit-transform: perspective(300px) rotateX(20deg);
+  transform: perspective(300px) rotateX(20deg);
 }
 .intro-container .titles > div {
   position: absolute;
   top: 100%;
-  -webkit-animation: titles 56s linear 4s;
-          animation: titles 56s linear 4s;
+  -webkit-animation: titles 50s linear 2s;
+          animation: titles 50s linear 2s;
 }
 .intro-container .titles > div > p {
   margin: 1.35em 0 1.85em 0;
@@ -104,8 +105,8 @@ body {
     opacity: 1;
   }
   100% {
-    top: 20%;
-    opacity: 0;
+    top: -100%;
+    opacity: 1;
   }
 }
 @keyframes titles {
@@ -117,7 +118,7 @@ body {
     opacity: 1;
   }
   100% {
-    top: 20%;
-    opacity: 0;
+    top: -200%;
+    opacity: 1;
   }
 }
