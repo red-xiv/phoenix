@@ -24,7 +24,7 @@ class DrawableObjectPool
 
     draw() {
 		for (let i = 0; i < this.size; i++) {
-			if (this.pool[i].alive) {
+			if (this.pool[i].isAlive) {
 				this.pool[i].updateState();
 				this.pool[i].draw();
 				if (this.pool[i].isOutOfBounds()) {

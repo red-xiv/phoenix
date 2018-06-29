@@ -3,8 +3,8 @@ class Drawable
     constructor(image, x, y,  width, canvasContex) {
         this.image = image;
 		this.canvasContex = canvasContex;
-		this.x = x;
-		this.y = y;
+		this.x = x || 0;
+		this.y = y || 0;
         this.velocity = 0;
         this.width = width;
         this.height = width;
@@ -12,10 +12,10 @@ class Drawable
 	}
 
     init(){
-        let offSet = -200;
+        let offSet = 200;
         
-        this.x = this.canvasContex.width + offSet;
-        this.y = Math.random() * this.canvasContex.height;
+        this.x = this.canvasContex.canvas.width + offSet;
+        this.y = Math.random() * this.canvasContex.canvas.height;
     }
 
 	draw() {

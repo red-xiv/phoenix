@@ -75,7 +75,7 @@ class Game {
     }
 
     animate() {
-        window.requestAnimationFrame( this.animate );
+        window.requestAnimationFrame(this.animate.bind(this));
         this.updateState();
         this.draw();
     }
@@ -87,9 +87,7 @@ class Game {
 
     draw(){
         //todo phoenix draw..
-
-        this.hazardPool.draw();
-        this.coinPool.draw();
+        this.hazardPool.concat(this.coinPool).forEach((p,i) => p.draw());
     }
     shouldStart(){
         return true; // todo maybe?

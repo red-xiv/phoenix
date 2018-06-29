@@ -1,4 +1,7 @@
 class ImageLoader{
+	constructor(){
+		this.isLoaded = false;
+	}
     loadAssets(){
 		let numberOfHazards = 9;
 		let numberOfCoins = 6;
@@ -19,17 +22,17 @@ class ImageLoader{
 			numLoaded++;
 			
 			if (numLoaded === numImages) {
-				window.game.init();
+				this.isLoaded = true;
 			}
 		}
 		
 		this.hazards.forEach((h,i) => {
-			h.onload = () => imageLoaded();
+			h.onload = () => this.imageLoaded();
 			h.src = `assets/coin (${i+1}).png`;
 		});
 		
 		this.hazards.forEach((h,i) => {
-			h.onload = () => imageLoaded();
+			h.onload = () => this.imageLoaded();
 			h.src = `assets/hazard (${i+1}).png`;
 		});
 	}
