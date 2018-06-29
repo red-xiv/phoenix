@@ -9,6 +9,7 @@
     const ASPECT = WIDTH / HEIGHT;
     const NEAR = 0.1;
     const FAR = 10000;
+    const SHOW_CONTROLS = false;
     
     // Control variables    
     const paramaters = {    
@@ -132,7 +133,7 @@
     
     const particleSystemParmaters = {
         particleSystemZ: -1380,
-        rotationY : 0.002,
+        rotationY : -0.002,
         colourChange : 0.0384,
         shape: invertedDiamond,
         previousShape: invertedDiamond,
@@ -235,20 +236,22 @@
     
     // Schedule the first frame.
     requestAnimationFrame(update);
-    
-    var gui = new dat.GUI();
-    
-    gui.add(paramaters, 'numberOfParticles').min(0).max(20000).step(100).listen().onChange((value) => {
-        changeNumberOfParticle(value);
-    });
-    
-    gui.add(particleSystemParmaters, 'rotationY').min(-0.1).max(0.1).step(0.001).listen();
-    
-    gui.add(particleSystemParmaters, 'colourChange').min(0.001).max(0.1).step(0.0001).listen();
-    
-    gui.add(particleSystemParmaters, 'particleSystemZ').min(-2000).max(0).step(20).onChange((value) => {
-        particleSystem.position.z = value;
-    })
+
+    if (SHOW_CONTROLS){
+        var gui = new dat.GUI();
+
+        gui.add(paramaters, 'numberOfParticles').min(0).max(20000).step(100).listen().onChange((value) => {
+            changeNumberOfParticle(value);
+        });
+
+        gui.add(particleSystemParmaters, 'rotationY').min(-0.1).max(0.1).step(0.001).listen();
+
+        gui.add(particleSystemParmaters, 'colourChange').min(0.001).max(0.1).step(0.0001).listen();
+
+        gui.add(particleSystemParmaters, 'particleSystemZ').min(-2000).max(0).step(20).onChange((value) => {
+            particleSystem.position.z = value;
+        })
+    }
     
     function createLight(){
         const pointLight =
