@@ -14,7 +14,7 @@
 
 <body>
 
-        <!-- <article class="intro-container">  
+        <article class="intro-container">  
             <section class="title start intro-fade">
                 <p>
                 <span>
@@ -59,13 +59,13 @@
                     </div>
                     </section>
                 </div>
-        </article> -->
+        </article>
 
-    <!-- <div id='background-container'>
+    <div id='background-container'>
         <object class="overlay" id="phoenix" data="assets/phoenix.svg" type="image/svg+xml" width="8%">
             Your browser doesn't support SVG :(
         </object>
-    </div> -->
+    </div>
 
     <canvas id="phoenix-canvas"></canvas>
     <canvas id="drawables-canvas"></canvas> 
@@ -79,7 +79,7 @@
   <script src="js/image-loader.js"></script>
   <script src="js//game-logic.js"></script>
   <script src="js/intro.js"></script>
-  <!-- <script src="js/particles.js"></script> -->
+  <script src="js/particles.js"></script>
   <script src="js/phoenix.js"></script>
   <script>
 
@@ -90,18 +90,16 @@
         let phoenix = null;
         let phoenixColour = '#0fbca3';
         let phoenixSize = "8%";
-        
-        // document.getElementById('phoenix').addEventListener('load', (event) => {
+
+        document.getElementById('phoenix').addEventListener('load', (event) => {
                     
-        //             // todo : update state method, animation loop, dom input for scale
-        //     console.log(`loaded svg: ${event.target.data}`)
-        //     let svgDoc = event.target.contentDocument;
+                    // todo : update state method, animation loop, dom input for scale
+            console.log(`loaded svg: ${event.target.data}`)
+            let svgDoc = event.target.contentDocument;
 
-        //     phoenix = new Phoenix(svgDoc.getElementById('phoenix'), phoenixSize, phoenixColour, phoenixColour);
-        //     game.init();
-        // }, false);
-
-         game.init();
+            phoenix = new Phoenix(svgDoc.getElementById('phoenix'), phoenixSize, phoenixColour, phoenixColour);
+            game.init();
+        }, false);
     })();
 </script>
 </body>
