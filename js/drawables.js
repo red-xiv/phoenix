@@ -12,7 +12,7 @@ class Drawable
 	}
 
     init(){
-        let offSet = 200;
+        let offSet = -100;
         
         this.x = this.canvasContex.canvas.width + offSet;
         this.y = Math.random() * this.canvasContex.canvas.height;
@@ -22,8 +22,8 @@ class Drawable
         if (!this.isAlive)
             return;
 
-        this.canvasContex.clearRect(this.x - 1, this.y -1, this.width + 1, this.height + 1);
-        this.canvasContex.drawImage(this.image, this.x, this.y);
+        this.canvasContex.clearRect(this.x - 1, this.y -1, this.width + 1, (this.height * this.image.height / this.image.width) + 1);
+        this.canvasContex.drawImage(this.image, this.x, this.y, this.width, this.height * this.image.height / this.image.width);
     }
     
     updateState(){
@@ -43,6 +43,15 @@ class Drawable
         this.isAlive = false;
         this.x = 0;
         this.y = 0;
+    }
+    isWithinCanvas(x,y){
+        let canvasWidth = this.canvasContex.canvas.width;
+        let canvasHeight = this.canvasContex.canvas.height;
+
+        if (x < 0 || x + this.width > canvasWidth) return false;
+        if (y < 0 || y + this.height > canvasHeight) return false;
+        
+        return true;
     }
 }
 
