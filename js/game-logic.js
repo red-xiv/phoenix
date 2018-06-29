@@ -12,10 +12,10 @@
 
 class Game {
     constructor(){
-        this.coinSize = 4;
-        this.hazardSize = 6;
+        this.coinSize = 20;
+        this.hazardSize = 26;
         this.numberOfCoins = 20;
-        this.numberOfHazards = 20;
+        this.numberOfHazards = 6;
     }    
     init() {
         this.imageLoader = new ImageLoader();
@@ -26,6 +26,10 @@ class Game {
 		if (this.phoenixCanvas.getContext) {
 			this.phoenixCtx = this.phoenixCanvas.getContext('2d');
             this.drawablesCtx = this.drawablesCanvas.getContext('2d');
+
+            this.phoenixCtx.imageSmoothingEnabled = false;
+            this.drawablesCanvas.imageSmoothingEnabled = false;
+
             
             // todo: > create hazard and coin funcs to enclose the context so this.context is bound right.
 			
