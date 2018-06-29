@@ -60,10 +60,11 @@
         </article>
 
     <div id='background-container'>
-        <object class="overlay" id="phoenix" data="assets/phoenix.svg" type="image/svg+xml" width="8%">
-            Your browser doesn't support SVG :(
-        </object>
+        
     </div>
+    <object class="overlay" id="phoenix" data="assets/phoenix.svg" type="image/svg+xml" width="8%">
+        Your browser doesn't support SVG :(
+    </object>
 
     <canvas id="phoenix-canvas"></canvas>
     <canvas id="drawables-canvas"></canvas> 
@@ -84,7 +85,7 @@
   </script>
   <script>
     (() => {
-        let game = new Game();
+        window.game = new Game();
         let phoenix = null;
         let phoenixColour = '#0fbca3';
         let phoenixSize = "8%";

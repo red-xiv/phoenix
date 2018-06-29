@@ -5,7 +5,7 @@ class Drawable
 		this.canvasContex = canvasContex;
 		this.x = x || 0;
 		this.y = y || 0;
-        this.velocity = 0;
+        this.velocity = 0.01;
         this.width = width;
         this.height = width;
         this.isAlive = false;
@@ -22,7 +22,6 @@ class Drawable
         if (!this.isAlive)
             return;
 
-        this.canvasContex.clearRect(this.x - 1, this.y -1, this.width + 1, (this.height * this.image.height / this.image.width) + 1);
         this.canvasContex.drawImage(this.image, this.x, this.y, this.width, this.height * this.image.height / this.image.width);
     }
     

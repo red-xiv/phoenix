@@ -14,8 +14,8 @@ class Game {
     constructor(){
         this.coinSize = 20;
         this.hazardSize = 26;
-        this.numberOfCoins = 20;
-        this.numberOfHazards = 6;
+        this.numberOfCoins = 2;
+        this.numberOfHazards = 2;
     }    
     init() {
         this.imageLoader = new ImageLoader();
@@ -40,8 +40,10 @@ class Game {
             this.coinPool = this.imageLoader.coins.map((h,i) => 
                 new DrawableObjectPool(2, (i) => new Coin(this.imageLoader.coins[i], 0, 0, this.coinSize, this.drawablesCtx))
             );
+            
+            this.drawablesCollection = this.hazardPool.concat(this.coinPool);
 
-            this.hazardPool.concat(this.coinPool).forEach((p,i) => p.init());
+            this.drawablesCollection.forEach((p,i) => p.init());
 
             this.getNewHazards();
             this.getNewCoins();
@@ -57,14 +59,23 @@ class Game {
     }
 
     getNewDrawables(numberOfDrawables, drawablePools){
-        let numberOfDifferentDrawables = numberOfDrawables / drawablePools.length;
-        let numberPerDrawable = numberOfDrawables / numberOfDifferentDrawables;
+        let numberPerDrawable = numberOfDrawables / drawablePools.length;
+        let numberOfDifferentDrawables = drawablePools.length;
+        
+        // more assets than loaded
+        if (numberPerDrawable < 1){
+            for (let i =0; i < numberOfDrawables ; i++){
+                drawablePools[i].getNew();
+            }
+        }
+        else
+        {
+            for (let i = 0; i < numberOfDifferentDrawables; i++){
+                let drawablePool = drawablePools[i];
 
-        for (let i = 0; i < numberOfDifferentDrawables; i++){
-            let drawablePool = drawablePools[i];
-
-            for (let j =0; j < numberPerDrawable ; j++){
-                drawablePool.getNew();
+                for (let j =0; j < numberPerDrawable ; j++){
+                    drawablePool.getNew();
+                }
             }
         }
     }
@@ -80,6 +91,7 @@ class Game {
 
     animate() {
         window.requestAnimationFrame(this.animate.bind(this));
+        this.drawablesCtx.clearRect(0, 0, this.drawablesCanvas.width, this.drawablesCanvas.height);
         this.updateState();
         this.draw();
     }
@@ -91,7 +103,7 @@ class Game {
 
     draw(){
         //todo phoenix draw..
-        this.hazardPool.concat(this.coinPool).forEach((p,i) => p.draw());
+        this.drawablesCollection.forEach(d => d.draw());
     }
     shouldStart(){
         return true; // todo maybe?
