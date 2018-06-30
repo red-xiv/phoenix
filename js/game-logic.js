@@ -15,8 +15,8 @@ class Game {
         this.coinSize = 8;
         this.hazardSize = 26;
         this.numberOfCoins = 12;
-        this.numberOfHazards = 6;
-        this.gameInitPause = 200;
+        this.numberOfHazards = 3;
+        this.gameInitPause = 1000;
     }    
     init() {
         this.imageLoader = new ImageLoader();
@@ -32,11 +32,13 @@ class Game {
             this.drawablesCtx.imageSmoothingEnabled = false;
 
             this.hazardPool = this.imageLoader.hazards.map((h,i) => 
-                new DrawableObjectPool(this.numberOfHazards, (i) => new Hazard(this.imageLoader.hazards[i], 0, 0, this.hazardSize, this.drawablesCtx))
+                new DrawableObjectPool(this.numberOfHazards, 
+                (i) => new Hazard(h, 0, 0, this.hazardSize, this.drawablesCtx))
             );
 
-            this.coinPool = this.imageLoader.coins.map((h,i) => 
-                new DrawableObjectPool(this.numberOfCoins, (i) => new Coin(this.imageLoader.coins[i], 0, 0, this.coinSize, this.drawablesCtx))
+            this.coinPool = this.imageLoader.coins.map((c,i) => 
+                new DrawableObjectPool(this.numberOfCoins, 
+                (i) => new Coin(c, 0, 0, this.coinSize, this.drawablesCtx))
             );
             
             this.drawablesCollection = this.hazardPool.concat(this.coinPool);

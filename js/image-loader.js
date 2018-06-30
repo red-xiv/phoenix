@@ -4,7 +4,7 @@ class ImageLoader{
 	}
     loadAssets(){
 		let numberOfHazards = 9;
-		let numberOfCoins = 1;
+		let numberOfCoins = 6;
 		this.coins = [];
 		this.hazards = [];
 
@@ -29,10 +29,9 @@ class ImageLoader{
 		
 		this.coins.forEach((h,i) => {
 			h.onload = () => this.imageLoaded();
-			h.src = `assets/coin (${2}).png`;
+			h.src = `assets/coin (${i+1}).png`;
 		});
 
-				
 		this.hazards.forEach((h,i) => {
 			h.onload = () => this.imageLoaded();
 			h.src = `assets/hazard (${i+1}).png`;
