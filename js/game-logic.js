@@ -12,8 +12,8 @@
 
 class Game {
     constructor(){
-        this.coinSize = 8;
-        this.hazardSize = 26;
+        this.coinSize = 42;
+        this.hazardSize = 96;
         this.numberOfCoins = 12;
         this.numberOfHazards = 3;
         this.gameInitPause = 1000;
@@ -30,6 +30,9 @@ class Game {
 
             this.phoenixCtx.imageSmoothingEnabled = false;
             this.drawablesCtx.imageSmoothingEnabled = false;
+            this.drawablesCtx.mozImageSmoothingEnabled = false;
+            this.drawablesCtx.webkitImageSmoothingEnabled = false;
+            this.drawablesCtx.msImageSmoothingEnabled = false;
 
             this.hazardPool = this.imageLoader.hazards.map((h,i) => 
                 new DrawableObjectPool(this.numberOfHazards, 

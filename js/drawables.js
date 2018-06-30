@@ -5,11 +5,11 @@ class Drawable
 		this.canvasContex = canvasContex;
 		this.x = x || 0;
 		this.y = y || 0;
-        this.velocity = 0.1;
+        this.velocity = 0;
         this.width = width;
         this.height = width;
         this.isAlive = false;
-	}
+}
 
     init(x,y){
         let offSet = -100;
@@ -21,8 +21,10 @@ class Drawable
 	draw() {
         if (!this.isAlive || !this.image)
             return;
-
-        this.canvasContex.drawImage(this.image, this.x, this.y, this.width, this.height * this.image.height / this.image.width);
+        
+        // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+        this.canvasContex.drawImage(this.image, 0, 0, this.image.width, this.image.height,
+                                    this.x, this.y, this.width, (this.height * this.image.height / this.image.width));
     }
     
     updateState(){
