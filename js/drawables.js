@@ -5,21 +5,21 @@ class Drawable
 		this.canvasContex = canvasContex;
 		this.x = x || 0;
 		this.y = y || 0;
-        this.velocity = 0.01;
+        this.velocity = 0.1;
         this.width = width;
         this.height = width;
         this.isAlive = false;
 	}
 
-    init(){
+    init(x,y){
         let offSet = -100;
         
-        this.x = this.canvasContex.canvas.width + offSet;
-        this.y = Math.random() * this.canvasContex.canvas.height;
+        this.x = x || (this.canvasContex.canvas.width + offSet);
+        this.y = y || (Math.random() * this.canvasContex.canvas.height);
     }
 
 	draw() {
-        if (!this.isAlive)
+        if (!this.isAlive || !this.image)
             return;
 
         this.canvasContex.drawImage(this.image, this.x, this.y, this.width, this.height * this.image.height / this.image.width);
@@ -31,7 +31,7 @@ class Drawable
     }
 
     isOutOfBounds(){
-        return false;
+        return !this.isWithinCanvas(this.x, this.y);
     }
 
     spawn(){
@@ -43,6 +43,7 @@ class Drawable
         this.x = 0;
         this.y = 0;
     }
+
     isWithinCanvas(x,y){
         let canvasWidth = this.canvasContex.canvas.width;
         let canvasHeight = this.canvasContex.canvas.height;
@@ -52,11 +53,26 @@ class Drawable
         
         return true;
     }
+
+    isCollision(otherDrawable){
+        return this.x < otherDrawable.x + otherDrawable.width  
+         && this.x + this.width  > otherDrawable.x 
+         && this.y < otherDrawable.y + otherDrawable.height 
+         && this.y + this.height > otherDrawable.y ;
+    }
 }
 
 class Hazard extends Drawable {
 }
 
 class Coin extends Drawable {
-
+    draw(){
+        super.draw();
+    }
+    init(x,y){
+        let offSet = 100;
+        
+        this.x = x || (Math.random() * this.canvasContex.canvas.width + offSet);
+        this.y = y || (Math.random() * this.canvasContex.canvas.height);
+    }
 }

@@ -3,7 +3,7 @@ const LEFT_KEY = 37;
 const UP_KEY = 38;
 const RIGHT_KEY = 39;
 const DOWN_KEY = 40;
-
+const movementKeys = [LEFT_KEY, RIGHT_KEY, UP_KEY, DOWN_KEY];
 let keys = [];
 
 class Animatable {
@@ -11,8 +11,9 @@ class Animatable {
         this.svg = svg;
         this.isAlive = false;
         this.radius = radius;
-        this.xVelocity = 20;
-        this.yVelocity = 15;
+        this.xVelocity = 0;
+        this.yVelocity = 0;
+        this.velocity = 0.4;
         this.x = 0;
         this.y = 0;
         this.pulse = null;
@@ -47,36 +48,31 @@ class Phoenix extends Animatable {
     }
 
     updatePlayerMovement() {
-        var oldx = this.x;
-        var oldy = this.y;
+        let oldx = this.x;
+        let oldy = this.y;
 
-        if (keys[UP_KEY]) 
-            this.moveUp();        
+        if (Keys.some(k => movementKeys[k]))
+        {
+            this.onKeyDown();                
 
-        if (keys[DOWN_KEY])
-            this.moveDown();
-
-        if (keys[LEFT_KEY]) 
-            this.moveLeft();        
-
-        if (keys[RIGHT_KEY])
-            this.moveRight();
-
-        if (this.y != oldy || this.x != oldx); 
-            this.attachPositionToSVG();
+            if (this.y != oldy || this.x != oldx); 
+                this.attachPositionToSVG();
+        }
     }
 
-    moveUp(){
-        this.y -= this.yVelocity
-    }
-    moveDown(){
-        this.y += this.yVelocity
-    }
-    moveLeft(){
-        this.x -= this.xVelocity;
-    }
-    moveRight(){
-        this.x += this.xVelocity;
+    onKeyDown(key)
+    {
+        if (keys[UP_KEY])
+            this.yVelocity = this.velocity * -1;
+        
+        if (keys[UP_KEY])
+            this.yVelocity = this.velocity * 1; 
+
+        if (keys[UP_KEY])
+            this.yVelocity = this.velocity * -1;
+        
+        if (keys[UP_KEY])
+            this.yVelocity = this.velocity * 1
     }
 }
 

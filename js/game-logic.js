@@ -12,10 +12,11 @@
 
 class Game {
     constructor(){
-        this.coinSize = 20;
+        this.coinSize = 8;
         this.hazardSize = 26;
-        this.numberOfCoins = 2;
-        this.numberOfHazards = 2;
+        this.numberOfCoins = 12;
+        this.numberOfHazards = 6;
+        this.gameInitPause = 200;
     }    
     init() {
         this.imageLoader = new ImageLoader();
@@ -28,17 +29,14 @@ class Game {
             this.drawablesCtx = this.drawablesCanvas.getContext('2d');
 
             this.phoenixCtx.imageSmoothingEnabled = false;
-            this.drawablesCanvas.imageSmoothingEnabled = false;
+            this.drawablesCtx.imageSmoothingEnabled = false;
 
-            
-            // todo: > create hazard and coin funcs to enclose the context so this.context is bound right.
-			
             this.hazardPool = this.imageLoader.hazards.map((h,i) => 
-                new DrawableObjectPool(2, (i) => new Hazard(this.imageLoader.hazards[i], 0, 0, this.hazardSize, this.drawablesCtx))
+                new DrawableObjectPool(this.numberOfHazards, (i) => new Hazard(this.imageLoader.hazards[i], 0, 0, this.hazardSize, this.drawablesCtx))
             );
 
             this.coinPool = this.imageLoader.coins.map((h,i) => 
-                new DrawableObjectPool(2, (i) => new Coin(this.imageLoader.coins[i], 0, 0, this.coinSize, this.drawablesCtx))
+                new DrawableObjectPool(this.numberOfCoins, (i) => new Coin(this.imageLoader.coins[i], 0, 0, this.coinSize, this.drawablesCtx))
             );
             
             this.drawablesCollection = this.hazardPool.concat(this.coinPool);
@@ -48,8 +46,9 @@ class Game {
             this.getNewHazards();
             this.getNewCoins();
 
-            if(this.shouldStart())
-		        this.start();
+            if(this.shouldStart()){
+                    setTimeout(this.start.bind(this), this.gameInitPause);
+            }
 
 			return true;
 		} 
@@ -93,7 +92,7 @@ class Game {
         window.requestAnimationFrame(this.animate.bind(this));
         this.drawablesCtx.clearRect(0, 0, this.drawablesCanvas.width, this.drawablesCanvas.height);
         this.updateState();
-        this.draw();
+        this.draw();    
     }
 
     updateState(){
@@ -110,6 +109,9 @@ class Game {
     }
 
 	start(){
-		this.animate();
+        if (!this.imageLoader.isLoaded)
+            this.imageLoader.onLoadedEvent(this.animate.bind(this));
+        else
+            this.animate();
 	};
 }
