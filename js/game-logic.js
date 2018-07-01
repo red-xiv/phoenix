@@ -17,6 +17,7 @@ class Game {
         this.numberOfCoins = 12;
         this.numberOfHazards = 6;
         this.gameInitPause = 1000;
+        this.hazardMap = [];
     }    
     init() {
         this.imageLoader = new ImageLoader();
@@ -46,7 +47,9 @@ class Game {
             
             this.drawablesCollection = this.hazardPool.concat(this.coinPool);
 
-            this.drawablesCollection.forEach((p,i) => p.init());
+            this.drawablesMap = this.createDrawableMap(this.drawablesCollection.length, this.drawablesCanvas.width, this.drawablesCanvas.height);
+
+            this.drawablesCollection.forEach((p,i) => p.init(this.drawablesMap[i][0], this.drawablesMap[i][1]));
 
             this.getNewHazards();
             this.getNewCoins();
@@ -60,6 +63,25 @@ class Game {
         else {
 			return false;
 		}
+    }
+
+    createDrawableMap(numberOfDrawables, drawableWidth, drawableHeight){
+        let mapRadius = Math.floor(Math.sqrt(numberOfDrawables)) +1;
+        let numberOfEmptySections =  Math.pow(mapRadius,2) - numberOfDrawables;
+        let ySectionHeight = drawableHeight / (numberOfDrawables + numberOfEmptySections);
+        let xSectionWidth = drawableWidth / (numberOfDrawables + numberOfEmptySections);
+        let idealEmptyRatio = 0.2;
+        let map = [];
+
+        for (let i = 0; i < mapRadius; i++){
+            
+            for (let j = 0; j < mapRadius; j++){
+                let x = drawableWidth + (i * xSectionWidth) + (i * xSectionWidth);
+                let y = j * ySectionHeight + (j * drawableHeight);
+                map.push([x, y]);            
+            }
+        }
+        return map;
     }
 
     getNewDrawables(numberOfDrawables, drawablePools){

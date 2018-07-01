@@ -5,7 +5,7 @@ class Drawable
 		this.canvasContex = canvasContex;
 		this.x = x || 0;
 		this.y = y || 0;
-        this.velocity = 0;
+        this.velocity = 1;
         this.width = width;
         this.height = width;
         this.isAlive = false;

@@ -6,11 +6,11 @@ class DrawableObjectPool
 		this.drawableFunc = drawableFunc;
     }
 
-	init (){
+	init (x,y){
 		for (let i = 0; i < this.size; i++) {
 			let drawable = this.drawableFunc(i);
 
-			drawable.init();
+			drawable.init(x,y);
 			this.pool.push(drawable);
 		}
 	}
