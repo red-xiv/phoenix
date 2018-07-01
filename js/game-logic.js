@@ -12,10 +12,10 @@
 
 class Game {
     constructor(){
-        this.coinSize = 42;
+        this.coinSize = 32;
         this.hazardSize = 96;
         this.numberOfCoins = 12;
-        this.numberOfHazards = 3;
+        this.numberOfHazards = 6;
         this.gameInitPause = 1000;
     }    
     init() {

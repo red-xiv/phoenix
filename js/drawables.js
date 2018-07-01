@@ -19,7 +19,7 @@ class Drawable
     }
 
 	draw() {
-        if (!this.isAlive || !this.image)
+        if (!this.isAlive || !this.image || !this.isWithinCanvas(this.x, this.y))
             return;
         
         // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
@@ -33,7 +33,7 @@ class Drawable
     }
 
     isOutOfBounds(){
-        return !this.isWithinCanvas(this.x, this.y);
+        return !this.isWithinAliveArea(this.x, this.y);
     }
 
     spawn(){
@@ -50,7 +50,17 @@ class Drawable
         let canvasWidth = this.canvasContex.canvas.width;
         let canvasHeight = this.canvasContex.canvas.height;
 
-        if (x < 0 || x + this.width > canvasWidth) return false;
+        if (!this.isWithinAliveArea(x,y) || x + this.width > canvasWidth)
+            return false;
+
+        return true;
+    }
+
+    isWithinAliveArea(x,y){
+        let canvasWidth = this.canvasContex.canvas.width;
+        let canvasHeight = this.canvasContex.canvas.height;
+
+        if (x < 0) return false;
         if (y < 0 || y + this.height > canvasHeight) return false;
         
         return true;
