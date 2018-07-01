@@ -12,9 +12,9 @@
 
 class Game {
     constructor(){
-        this.coinSize = 32;
+        this.coinSize = 22;
         this.hazardSize = 96;
-        this.numberOfCoins = 12;
+        this.numberOfCoins = 24;
         this.numberOfHazards = 6;
         this.gameInitPause = 1000;
         this.hazardMap = [];
@@ -49,7 +49,14 @@ class Game {
 
             this.drawablesMap = this.createDrawableMap(this.drawablesCollection.length, this.drawablesCanvas.width, this.drawablesCanvas.height);
 
-            this.drawablesCollection.forEach((p,i) => p.init(this.drawablesMap[i][0], this.drawablesMap[i][1]));
+            this.drawablesCollection.forEach((p,i) => {
+                let mapSectionIndex = Math.floor(Math.random() * this.drawablesMap.length);
+                let mapSection = this.drawablesMap[mapSectionIndex];
+
+                p.init(mapSection[0], mapSection[1]);
+                
+                this.drawablesMap.splice(mapSectionIndex,1);
+            });
 
             this.getNewHazards();
             this.getNewCoins();
@@ -68,16 +75,18 @@ class Game {
     createDrawableMap(numberOfDrawables, drawableWidth, drawableHeight){
         let mapRadius = Math.floor(Math.sqrt(numberOfDrawables)) +1;
         let numberOfEmptySections =  Math.pow(mapRadius,2) - numberOfDrawables;
-        let ySectionHeight = drawableHeight / (numberOfDrawables + numberOfEmptySections);
-        let xSectionWidth = drawableWidth / (numberOfDrawables + numberOfEmptySections);
+
+        let ySectionHeight = drawableHeight / mapRadius;
+        let xSectionWidth = drawableWidth / mapRadius;
+
         let idealEmptyRatio = 0.2;
         let map = [];
 
         for (let i = 0; i < mapRadius; i++){
             
             for (let j = 0; j < mapRadius; j++){
-                let x = drawableWidth + (i * xSectionWidth) + (i * xSectionWidth);
-                let y = j * ySectionHeight + (j * drawableHeight);
+                let x = drawableWidth + (i * xSectionWidth);
+                let y = j * ySectionHeight;
                 map.push([x, y]);            
             }
         }
