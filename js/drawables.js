@@ -16,6 +16,9 @@ class Drawable
         
         this.x = x || (this.canvasContex.canvas.width + offSet);
         this.y = y || (Math.random() * this.canvasContex.canvas.height);
+        
+        this.startingX = this.x;
+        this.startingY = this.y;
     }
 
 	draw() {
@@ -44,6 +47,12 @@ class Drawable
         this.isAlive = false;
         this.x = 0;
         this.y = 0;
+    }
+
+    reset(){
+        this.x = this.startingX;
+        this.y = this.startingY;
+        this.spawn();
     }
 
     isWithinCanvas(x,y){
@@ -86,5 +95,8 @@ class Coin extends Drawable {
         
         this.x = x || (Math.random() * this.canvasContex.canvas.width + offSet);
         this.y = y || (Math.random() * this.canvasContex.canvas.height);
+
+        this.startingX = this.x;
+        this.startingY = this.y;
     }
 }

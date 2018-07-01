@@ -18,18 +18,21 @@ class DrawableObjectPool
     getNew() {
 		if((!!this.pool[this.size - 1]) && (this.pool[this.size - 1].isAlive == false)) {
 			this.pool[this.size - 1].spawn();
-			this.pool.unshift(this.pool.pop());
+			// this.pool.unshift(this.pool.pop());
 		}
 	}
 
     draw() {
 		for (let i = 0; i < this.size; i++) {
+			this.pool[i].updateState();
+			
 			if (this.pool[i].isAlive) {
-				this.pool[i].updateState();
 				this.pool[i].draw();
+
 				if (this.pool[i].isOutOfBounds()) {
 					this.pool[i].clear();
-					this.pool.push((this.pool.splice(i,1))[0]);
+					this.pool[i].reset();
+					// this.pool.push((this.pool.splice(i,1))[0]);
 				}
 			}
 			else
