@@ -19,15 +19,18 @@ class Game {
         this.gameInitPause = 1000;
         this.hazardMap = [];
     }    
-    init() {
+    init(phoenix) {
+        this.phoenix = phoenix;
         this.imageLoader = new ImageLoader();
-        this.imageLoader.loadAssets();
         this.phoenixCanvas = document.getElementById('phoenix-canvas');
         this.drawablesCanvas = document.getElementById('drawables-canvas');
-        
+
 		if (this.phoenixCanvas.getContext) {
 			this.phoenixCtx = this.phoenixCanvas.getContext('2d');
             this.drawablesCtx = this.drawablesCanvas.getContext('2d');
+            
+            this.imageLoader.loadAssets();
+            this.phoenix.init(this.phoenixCtx, 0, this.phoenixCanvas.height /2);
 
             this.phoenixCtx.imageSmoothingEnabled = false;
             this.drawablesCtx.imageSmoothingEnabled = false;

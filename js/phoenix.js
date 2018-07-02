@@ -7,45 +7,47 @@ const movementKeys = [LEFT_KEY, RIGHT_KEY, UP_KEY, DOWN_KEY];
 let keys = [];
 
 class Animatable {
-    constructor(svg, radius, primaryColour, secondaryColour){
+    constructor(html, svg, width, height, primaryColour, secondaryColour){
+        this.html = html;
         this.svg = svg;
         this.isAlive = false;
-        this.radius = radius;
+        this.width = width;
+        this.height = height;
         this.xVelocity = 0;
         this.yVelocity = 0;
         this.velocity = 0.4;
-        this.x = 0;
-        this.y = 0;
         this.pulse = null;
         this.primaryColour = primaryColour;
         this.secondaryColour = secondaryColour;
         this.activationLevel = 0;
-
-        this.attachColourToSVG(this.primaryColour);
-        this.attachSizeToSVG(this.radius)
     }
 
-    updateColour(colour) {
-        this.primaryColour = colour;
-    }
+    init(canvasContext, x, y){
+        this.canvasContext = canvasContext;
+        this.x = x;
+        this.y = y;
+        this.isAlive = true;
 
-    attachColourToSVG(colour){
-        this.svg.setAttribute("fill", colour);
-    }
-    attachSizeToSVG(radius){
-        this.svg.setAttribute("width", radius);
-    }
-    attachPositionToSVG(){
-        this.svg.setAttribute("x", this.x);
-        this.svg.setAttribute("y", this.y);
-        // this.svg.setAttribute("transform",);
+        d3.xml(this.svg).mimeType("image/svg+xml").get((error, xml) => {
+                if (error) 
+                    throw error;
+                
+                this.html = document.getElementById(this.html);
+                this.html.appendChild(xml.documentElement.getElementById('phoenix'));
+                
+                this.svg = d3.select(this.html);
+
+                this.svg.attr("width", this.height);
+                this.svg.attr("height", this.width);
+                this.svg.style("fill", this.primaryColour);
+
+                let xmlSVG = d3.select(xml.getElementsByTagName('svg')[0]);
+                this.svg.attr('viewBox', xmlSVG.attr('viewBox'));
+            });
     }
 }
 
 class Phoenix extends Animatable {
-    constructor(svg, radius, primaryColour, secondaryColour){
-        super(svg, radius, primaryColour, secondaryColour);
-    }
 
     updatePlayerMovement() {
         let oldx = this.x;

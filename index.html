@@ -62,14 +62,16 @@
     <div id='background-container'>
         
     </div>
-    <object class="overlay" id="phoenix" data="assets/phoenix.svg" type="image/svg+xml" width="8%">
+
+    <!--<object class="overlay" id="phoenix" data="assets/phoenix.svg" type="image/svg+xml" width="8%">
         Your browser doesn't support SVG :(
     </object>
-
-    <canvas id="phoenix-canvas"></canvas>
+    -->
+    <svg id="phoenix"></svg>
+    <canvas id="phoenix-canvas"  width="800" height="800"></canvas>
     <canvas id="drawables-canvas" width="800" height="800"></canvas>
     
-  <!-- <script src="program.js"></script> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.js"></script>
@@ -86,19 +88,13 @@
   <script>
     (() => {
         window.game = new Game();
-        let phoenix = null;
         let phoenixColour = '#0fbca3';
-        let phoenixSize = "8%";
+        let phoenixHeight = "160";
+        let phoenixWidth = "160";
+        let phoenix = new Phoenix('phoenix', 'assets/phoenix.svg', phoenixWidth, phoenixHeight,
+                                             phoenixColour, phoenixColour);
 
-        document.getElementById('phoenix').addEventListener('load', (event) => {
-                    
-                    // todo : update state method, animation loop, dom input for scale
-            console.log(`loaded svg: ${event.target.data}`)
-            let svgDoc = event.target.contentDocument;
-
-            phoenix = new Phoenix(svgDoc.getElementById('phoenix'), phoenixSize, phoenixColour, phoenixColour);
-            game.init();
-        }, false);
+        game.init(phoenix);
     })();
 </script>
 </body>

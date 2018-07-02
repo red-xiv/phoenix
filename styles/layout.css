@@ -15,8 +15,8 @@ canvas {
     z-index: -1;
 }
 
-#phoenix-canvas {
-    z-index: 1;
+#phoenix-canvas, phoenix {
+    z-index: 3;
 }
 
 #drawables-canvas {
