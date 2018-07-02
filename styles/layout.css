@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 
-canvas {
+canvas, .overlay {
     position: absolute;
     top: 0px;
     left: 0px;
