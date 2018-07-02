@@ -12,7 +12,7 @@ class Drawable
 }
 
     init(x,y){
-        let offSet = -100;
+        let offSet = 100;
         
         this.x = x || (this.canvasContex.canvas.width + offSet);
         this.y = y || (Math.random() * this.canvasContex.canvas.height);
@@ -22,7 +22,7 @@ class Drawable
     }
 
 	draw() {
-        if (!this.isAlive || !this.image || !this.isWithinCanvas(this.x, this.y))
+        if (!this.isAlive || !this.image || !this.isWithinCanvas(this.x - this.image.width, this.y))
             return;
         
         // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
@@ -59,7 +59,7 @@ class Drawable
         let canvasWidth = this.canvasContex.canvas.width;
         let canvasHeight = this.canvasContex.canvas.height;
 
-        if (!this.isWithinAliveArea(x,y) || x + this.width > canvasWidth)
+        if (!this.isWithinAliveArea(x,y) || x > canvasWidth)
             return false;
 
         return true;
@@ -69,7 +69,7 @@ class Drawable
         let canvasWidth = this.canvasContex.canvas.width;
         let canvasHeight = this.canvasContex.canvas.height;
 
-        if (x < 0) return false;
+        if (x + this.image.width < 0) return false;
         if (y < 0 || y + this.height > canvasHeight) return false;
         
         return true;
