@@ -138,12 +138,16 @@ class Game {
     animate() {
         window.requestAnimationFrame(this.animate.bind(this));
         this.drawablesCtx.clearRect(0, 0, this.drawablesCanvas.width, this.drawablesCanvas.height);
-        this.updateState();
+        
         this.draw();    
+        this.updateState();
     }
 
     updateState(){
-        //todo coin score, end game etc
+        let isCollision = this.drawablesCollection.some(d => d.pool.some(p => this.isPhoenixCollision(p)));
+
+        if (!!isCollision)
+            console.log('COLLISION');
     }
 
     draw(){
@@ -159,5 +163,17 @@ class Game {
             this.imageLoader.onLoadedEvent(this.animate.bind(this));
         else
             this.animate();
-	};
+    };
+    
+    isPhoenixCollision(drawable){
+        if (drawable.x < 0 || drawable.x > this.drawablesCanvas.width)
+            return false;
+
+        let pLeftX = this.phoenix.x;
+        let pRightX = pLeftX + this.phoenix.numericalWidth;
+        let pTop = this.phoenix.y;
+        let pBottom = this.phoenix.y + this.phoenix.numericalHeight;
+
+        return drawable.isCollision(pLeftX, pRightX, pTop, pBottom);
+    }
 }

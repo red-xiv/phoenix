@@ -74,12 +74,12 @@ class Drawable
         
         return true;
     }
-
-    isCollision(otherDrawable){
-        return this.x < otherDrawable.x + otherDrawable.width  
-         && this.x + this.width  > otherDrawable.x 
-         && this.y < otherDrawable.y + otherDrawable.height 
-         && this.y + this.height > otherDrawable.y ;
+    
+    isCollision(leftX, rightX, topY, bottomY){
+        return this.x < rightX  
+         && this.x + this.width  > leftX 
+         && this.y < bottomY 
+         && this.y  + this.height > topY;
     }
 }
 
