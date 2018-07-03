@@ -143,12 +143,11 @@ class Game {
     }
 
     updateState(){
-        //todo phoenix update state and game visible state - object pool handles it's self
-        //todo drawableObjectPool > getNew when !IsAlive fluctuates below x? * log(this.gameLevel) ?
+        //todo coin score, end game etc
     }
 
     draw(){
-        //todo phoenix draw..
+        this.phoenix.draw();
         this.drawablesCollection.forEach(d => d.draw());
     }
     shouldStart(){
