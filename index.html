@@ -27,7 +27,8 @@
                 
                 <section class="intro intro-fade">
                     A long long time ago in a galaxy far far away…
-                
+                    <br/>
+                    <i>(press space to skip)</i>
                  
                 </section>
                     
@@ -93,10 +94,11 @@
         let phoenixColour = '#0fbca3';
         let phoenixHeight = "160";
         let phoenixWidth = "160";
-        let phoenix = new Phoenix('phoenix', 'assets/phoenix.svg', phoenixWidth, phoenixHeight,
+        window.phoenix = new Phoenix('phoenix', 'assets/phoenix.svg', phoenixWidth, phoenixHeight,
                                              phoenixColour, phoenixColour);
-
-        game.init(phoenix);
+        //window.phoenix.draw(true);
+        // wait for intro to finish, or intro can trigger this..
+        setTimeout(() => window.game.isInitialised = window.game.init(window.phoenix), 60000);
     })();
 </script>
 </body>

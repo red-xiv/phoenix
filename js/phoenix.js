@@ -30,8 +30,13 @@ class Animatable {
         this.x = x;
         this.y = y;
         this.isAlive = true;
-        this.canvasWidth = window.innerWidth;
-        this.canvasHeight = window.innerHeight;  
+        this.innerWidth = window.innerWidth;
+        this.innerHeight = window.innerHeight;
+        this.canvasXRatio = (this.innerWidth / this.canvasContext.canvas.width);
+        this.canvasYRatio = (this.innerHeight / this.canvasContext.canvas.height);
+        
+        this.numericalWidth = this.numericalWidth / this.canvasXRatio;
+        this.numericalHeight = this.numericalHeight / this.canvasYRatio;
 
         d3.xml(this.svg).mimeType("image/svg+xml").get((error, xml) => {
                 if (error) 
@@ -91,8 +96,22 @@ class Animatable {
         if (!this.canvasContext) return true;
 
         return x > 0 && y > 0 
-            && x + this.numericalWidth < this.canvasWidth
-            && y + this.numericalHeight < this.canvasHeight;
+            && x + this.numericalWidth < this.innerWidth
+            && y + this.numericalHeight < this.innerHeight;
+    }
+
+    collide(drawable){
+        if (drawable.collisionShouldDestroy){
+            drawable.clear();
+            drawable.reset();
+        }
+    }
+
+    getRealXCoord(value){
+        return value / this.canvasXRatio;
+    }
+    getRealYCoord(value){
+        return value / this.canvasYRatio;
     }
 }
 
@@ -100,6 +119,10 @@ class Phoenix extends Animatable {
 
     draw(){
         this.updatePlayerMovement();
+    }
+
+    forceStaticDraw(){
+
     }
 
     updatePlayerMovement() {
@@ -122,7 +145,7 @@ class Phoenix extends Animatable {
     }
 
     attachPositionToSVG(){
-        this.svg.attr("transform", `translate(${this.x}, ${this.y})`);//.duration(this.transitionSpeed);
+        this.svg.attr("transform", `translate(${this.x}, ${this.y})`);
     }
 
     onKeyDown(key)

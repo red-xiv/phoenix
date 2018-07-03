@@ -11,13 +11,16 @@
 })();
 
 class Game {
-    constructor(){
+    constructor(phoenix){
+        this.phoenix = phoenix;
         this.coinSize = 22;
         this.hazardSize = 96;
         this.numberOfCoins = 24;
         this.numberOfHazards = 9;
         this.gameInitPause = 1000;
         this.hazardMap = [];
+        this.coinCount = 0;
+        this.isInitialised = false;
     }    
     init(phoenix) {
         this.phoenix = phoenix;
@@ -144,15 +147,26 @@ class Game {
     }
 
     updateState(){
-        let isCollision = this.drawablesCollection.some(d => d.pool.some(p => this.isPhoenixCollision(p)));
-
-        if (!!isCollision)
-            console.log('COLLISION');
+        for (let i = 0; i < this.drawablesCollection.length; i++){
+            for (let j = 0; j < this.drawablesCollection[i].pool.length; j++){
+                var drawable = this.drawablesCollection[i].pool[j];
+                
+                if (this.isPhoenixCollision(drawable)){
+                    console.log('COLLISION');
+                    if (drawable.collisionShouldDestroy){
+                        drawable.clear();
+                        drawable.reset();
+                        this.coinCount++;
+                    }
+                }
+            }
+        }            
     }
 
     draw(){
         this.phoenix.draw();
         this.drawablesCollection.forEach(d => d.draw());
+        this.drawScore();
     }
     shouldStart(){
         return true; // todo maybe?
@@ -169,11 +183,18 @@ class Game {
         if (drawable.x < 0 || drawable.x > this.drawablesCanvas.width)
             return false;
 
-        let pLeftX = this.phoenix.x;
+        let pLeftX = this.phoenix.getRealXCoord(this.phoenix.x);
         let pRightX = pLeftX + this.phoenix.numericalWidth;
-        let pTop = this.phoenix.y;
+        let pTop = this.phoenix.getRealYCoord(this.phoenix.y);
         let pBottom = this.phoenix.y + this.phoenix.numericalHeight;
 
         return drawable.isCollision(pLeftX, pRightX, pTop, pBottom);
+    }
+
+    drawScore() {
+        this.phoenixCtx.clearRect(0, 0, 200, 200);
+        this.phoenixCtx.font = "16px Arial";
+        this.phoenixCtx.fillStyle = "#0095DD";
+        this.phoenixCtx.fillText("Score: "+ this.coinCount, 8, 20);
     }
 }

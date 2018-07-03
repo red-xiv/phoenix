@@ -9,6 +9,7 @@ class Drawable
         this.width = width;
         this.height = width;
         this.isAlive = false;
+        this.collisionShouldDestroy = false;
 }
 
     init(x,y){
@@ -74,7 +75,7 @@ class Drawable
         
         return true;
     }
-    
+
     isCollision(leftX, rightX, topY, bottomY){
         return this.x < rightX  
          && this.x + this.width  > leftX 
@@ -87,6 +88,11 @@ class Hazard extends Drawable {
 }
 
 class Coin extends Drawable {
+    constructor(image, x, y,  width, canvasContex){
+        super(image, x, y,  width, canvasContex);
+
+        this.collisionShouldDestroy = true;
+    }
     draw(){
         super.draw();
     }

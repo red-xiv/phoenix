@@ -21,14 +21,24 @@
             this.start.hide();
             this.el.append(this.animation);
         }
-    }
 
-    document.onkeydown = (e) => {
-        if (e.keyCode == 32){
-                       
+        remove(){
+            document.getElementsByTagName('article')[0].remove();
+        }
+
+        skipIntro(){
+            this.remove();
+
+            if (!!window.game && !! window.phoenix && !window.game.isInitialised)
+                window.game.isInitialised = window.game.init(window.phoenix);
         }
     }
-
+    
     window.intro = new Intro({el: '#intro-container'});
+    document.onkeydown = (e) => {
+        if (e.keyCode == 32){
+            window.intro.skipIntro();
+        }
+    }
     intro.startAnimation(); 
 })();
