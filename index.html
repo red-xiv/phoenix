@@ -22,15 +22,23 @@
                 </span>      
                 </p>
             </section>
+
+            <section class="title end intro-fade">
+                <p>
+                <span>
+                    (press space to skip)
+                </span>      
+                </p>
+            </section>
                 
             <div class="animation">
                 
                 <section class="intro intro-fade">
                     A long long time ago in a galaxy far far away…
-                    <br/>
-                    <i>(press space to skip)</i>
-                 
+                    <br/>                 
                 </section>
+
+                
                     
                 <section class="titles">
                     <div contenteditable="true" spellcheck="false">  
@@ -94,9 +102,9 @@
         let phoenixColour = '#0fbca3';
         let phoenixHeight = "160";
         let phoenixWidth = "160";
-        window.phoenix = new Phoenix('phoenix', 'assets/phoenix.svg', phoenixWidth, phoenixHeight,
+        window.phoenix = new Phoenix('phoenix', 'assets/phoenix.png', phoenixWidth, phoenixHeight,
                                              phoenixColour, phoenixColour);
-        //window.phoenix.draw(true);
+        window.phoenix.draw(true);
         // wait for intro to finish, or intro can trigger this..
         setTimeout(() => window.game.isInitialised = window.game.init(window.phoenix), 60000);
     })();

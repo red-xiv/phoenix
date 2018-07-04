@@ -8,6 +8,7 @@ body {
   overflow: hidden;
   margin: 0;
 }
+  
 
 .intro-container section {
   position: absolute;
@@ -16,12 +17,22 @@ body {
   z-index: 1;
 }
 .intro-container .start {
-  font-size: 200%;
+  font-size: 400%;
   width: 14em;
   margin: -4em 0 0 -7em;
   text-align: center;
   cursor: pointer;
 }
+
+.intro-container .end {
+  font-size: 300%;
+  width: 14em;
+  margin: 3em 0 0 -7em;
+  text-align: center;
+  cursor: pointer;
+  color: aliceblue !important;
+}
+
 .intro-container .start span {
   color: #13BDA5;
 }

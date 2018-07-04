@@ -59,7 +59,7 @@ class Animatable {
                 this.attachPositionToSVG();
 
                 window.addEventListener("keydown", (e) => {
-                    console.log("keyDown " + e.keyCode); 
+                    
                     this.keys[e.keyCode] = true;
 
                     if (e.keyCode == UP_KEY){

@@ -10,12 +10,17 @@
 * hazard and coin collision when phoenix at x = 0ish
 * hazard explode on collision and clear?
 
+* music ?
+* coin & hazard sounds?
+
 * deploy somewhere?
 
 ## hajar can work on too
 
 * space to skip much smaller text
 * tweak score box styling 
+* music ?
+* coin & hazard sounds?
 * tweak background colours
 
 ## hajar and james both todo

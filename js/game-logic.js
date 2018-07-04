@@ -13,7 +13,7 @@
 class Game {
     constructor(phoenix){
         this.phoenix = phoenix;
-        this.healthAreaX = 18;
+        this.healthAreaX = 22;
         this.heartSize = 4
         this.coinSize = 22;
         this.hazardSize = 96;
@@ -156,9 +156,9 @@ class Game {
                 var drawable = this.drawablesCollection[i].pool[j];
                 
                 if (this.isPhoenixCollision(drawable)){
-                    console.log('COLLISION');
+                    //console.log('COLLISION');
                     
-                    if (drawable.collisionShouldDestroy){
+                    if (drawable.collisionShouldDestroy && this.phoenix.x > 1){
                         this.coinCount++;
                     }
                     this.phoenix.collide(drawable);
@@ -200,8 +200,8 @@ class Game {
         let scoreLength = ("" + this.coinCount).length;
         this.phoenixCtx.clearRect(0, 0, 300, 300);
         this.phoenixCtx.font = "16px roboto";
-        this.phoenixCtx.fillStyle = "#13BDA5";
-        this.phoenixCtx.fillRect(10,10, (180  + (20 * scoreLength)) / this.canvasXRatio, 47 / this.canvasYRatio);    
+        // this.phoenixCtx.fillStyle = "#13BDA5";
+        // this.phoenixCtx.fillRect(10,10, (180  + (20 * scoreLength)) / this.canvasXRatio, 47 / this.canvasYRatio);    
         this.phoenixCtx.fillStyle = "#ffffff";
         this.phoenixCtx.fillText("Score: "+ this.coinCount, 30 / this.canvasXRatio, 40/ this.canvasYRatio);
     }
@@ -212,7 +212,7 @@ class Game {
     }
     drawHeart(lifeNumber, isAlive){
         let posX = this.healthAreaX + (lifeNumber * (this.heartSize * 4));
-        let posY = 50;
+        let posY = 56;
         let baseLen = this.heartSize;
 
         this.phoenixCtx.save();
