@@ -10,7 +10,9 @@ class Drawable
         this.height = width;
         this.isAlive = false;
         this.collisionShouldDestroy = false;
-}
+        this.collisionPauseFrames = 60; // 60fps?? hopefully :p
+        this.pause = 0;
+    }
 
     init(x,y){
         let offSet = 100;
@@ -32,7 +34,11 @@ class Drawable
     }
     
     updateState(){
-        this.x -= this.velocity;
+        if (this.pause > 0) 
+            this.pause --;
+
+        else
+            this.x -= this.velocity;
         // todo: some random y?
     }
 

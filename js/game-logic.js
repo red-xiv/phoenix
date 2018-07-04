@@ -13,6 +13,8 @@
 class Game {
     constructor(phoenix){
         this.phoenix = phoenix;
+        this.healthAreaX = 18;
+        this.heartSize = 4
         this.coinSize = 22;
         this.hazardSize = 96;
         this.numberOfCoins = 24;
@@ -153,11 +155,11 @@ class Game {
                 
                 if (this.isPhoenixCollision(drawable)){
                     console.log('COLLISION');
+                    
                     if (drawable.collisionShouldDestroy){
-                        drawable.clear();
-                        drawable.reset();
                         this.coinCount++;
                     }
+                    this.phoenix.collide(drawable);
                 }
             }
         }            
@@ -167,6 +169,7 @@ class Game {
         this.phoenix.draw();
         this.drawablesCollection.forEach(d => d.draw());
         this.drawScore();
+        this.drawHealth();
     }
     shouldStart(){
         return true; // todo maybe?
@@ -196,5 +199,34 @@ class Game {
         this.phoenixCtx.font = "16px Arial";
         this.phoenixCtx.fillStyle = "#0095DD";
         this.phoenixCtx.fillText("Score: "+ this.coinCount, 8, 20);
+    }
+    drawHealth(){
+        for (let i = 1; i <= this.phoenix.maxHealth; i++){
+            this.drawHeart(i-1, this.phoenix.health >= i);
+        }
+    }
+    drawHeart(lifeNumber, isAlive){
+        let posX = this.healthAreaX + (lifeNumber * (this.heartSize * 4));
+        let posY = 50;
+        let baseLen = this.heartSize;
+
+        this.phoenixCtx.save();
+
+        this.phoenixCtx.translate(posX, posY);
+        this.phoenixCtx.rotate(4);        
+        this.phoenixCtx.beginPath();
+        this.phoenixCtx.moveTo(-baseLen, 0);
+        this.phoenixCtx.arc(0, 0, baseLen, 0, Math.PI, false);
+        this.phoenixCtx.lineTo(baseLen, 0);
+        this.phoenixCtx.arc(baseLen, -baseLen, baseLen, Math.PI * 90 / 180, Math.PI * 270 / 180, true);
+        this.phoenixCtx.lineTo(baseLen, -baseLen * 2);
+        this.phoenixCtx.lineTo(-baseLen, -baseLen * 2);
+        this.phoenixCtx.lineTo(-baseLen, 0);
+
+        this.phoenixCtx.fillStyle = isAlive ? "rgba(255,100,100,0.9)" : "#e4e4e4";            
+        
+        this.phoenixCtx.fill();
+        this.phoenixCtx.closePath();
+        this.phoenixCtx.restore();
     }
 }

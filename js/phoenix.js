@@ -23,6 +23,8 @@ class Animatable {
         this.transitionSpeed = 100;
         this.keys = [];
         this.maxVelocity = 3;
+        this.maxHealth = 5;
+        this.health = this.maxHealth;
     }
 
     init(canvasContext, x, y){
@@ -101,9 +103,20 @@ class Animatable {
     }
 
     collide(drawable){
+        if (drawable.pause > 0 || this.x <= 1)
+            return;
+            
+        drawable.pause = drawable.collisionPauseFrames;
+
         if (drawable.collisionShouldDestroy){
             drawable.clear();
             drawable.reset();
+        }
+        else{
+            //todo: do this better
+
+            this.xVelocity = this.maxVelocity * -1;
+            this.health --;
         }
     }
 
