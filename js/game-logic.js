@@ -33,7 +33,9 @@ class Game {
 		if (this.phoenixCanvas.getContext) {
 			this.phoenixCtx = this.phoenixCanvas.getContext('2d');
             this.drawablesCtx = this.drawablesCanvas.getContext('2d');
-            
+            this.canvasXRatio = window.innerWidth / this.phoenixCanvas.width;
+            this.canvasYRatio = window.innerHeight / this.phoenixCanvas.height;
+
             this.imageLoader.loadAssets();
             this.phoenix.init(this.phoenixCtx, 0, this.phoenixCanvas.height /2);
 
@@ -195,10 +197,13 @@ class Game {
     }
 
     drawScore() {
-        this.phoenixCtx.clearRect(0, 0, 200, 200);
-        this.phoenixCtx.font = "16px Arial";
-        this.phoenixCtx.fillStyle = "#0095DD";
-        this.phoenixCtx.fillText("Score: "+ this.coinCount, 8, 20);
+        let scoreLength = ("" + this.coinCount).length;
+        this.phoenixCtx.clearRect(0, 0, 300, 300);
+        this.phoenixCtx.font = "16px roboto";
+        this.phoenixCtx.fillStyle = "#13BDA5";
+        this.phoenixCtx.fillRect(10,10, (180  + (20 * scoreLength)) / this.canvasXRatio, 47 / this.canvasYRatio);    
+        this.phoenixCtx.fillStyle = "#ffffff";
+        this.phoenixCtx.fillText("Score: "+ this.coinCount, 30 / this.canvasXRatio, 40/ this.canvasYRatio);
     }
     drawHealth(){
         for (let i = 1; i <= this.phoenix.maxHealth; i++){
