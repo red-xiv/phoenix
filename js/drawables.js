@@ -12,6 +12,7 @@ class Drawable
         this.collisionShouldDestroy = false;
         this.collisionPauseFrames = 60; // 60fps?? hopefully :p
         this.pause = 0;
+        this.soundFile = '';
     }
 
     init(x,y){
@@ -88,9 +89,18 @@ class Drawable
          && this.y < bottomY 
          && this.y  + this.height > topY;
     }
+    playSound(){
+        if (!!this.soundFile)
+            this.soundFile.play();
+    }
 }
 
 class Hazard extends Drawable {
+    constructor(image, x, y,  width, canvasContex){
+        super(image, x, y,  width, canvasContex);
+
+        this.soundFile = new Audio('assets/hazard.mp3');
+    }
 }
 
 class Coin extends Drawable {
@@ -98,6 +108,7 @@ class Coin extends Drawable {
         super(image, x, y,  width, canvasContex);
 
         this.collisionShouldDestroy = true;
+        this.soundFile = new Audio('assets/coin.mp3');
     }
     draw(){
         super.draw();

@@ -107,6 +107,7 @@ class Animatable {
             return;
             
         drawable.pause = drawable.collisionPauseFrames;
+        drawable.playSound();
 
         if (drawable.collisionShouldDestroy){
             drawable.clear();
