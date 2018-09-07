@@ -121,6 +121,12 @@ class Animatable {
         }
     }
 
+    attack(){
+        // todo: add some default attack > override in phoenix 
+        // make more generic for d3 sprite animation
+        // add some animation for the svg groupings..
+    }
+
     getRealXCoord(value){
         return value / this.canvasXRatio;
     }
