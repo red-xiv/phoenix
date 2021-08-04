@@ -62,7 +62,7 @@
     </object>
     -->
     <div class='overlay'>
-        <svg id="phoenix"></svg>
+        <svg id="phoenix" crossorigin="anonymous"></svg>
     </div>
     <canvas id="phoenix-canvas"  width="800" height="800"></canvas>
     <canvas id="drawables-canvas" width="800" height="800"></canvas>
@@ -91,7 +91,10 @@
                                              phoenixColour, phoenixColour);
         window.phoenix.draw(true);
         // wait for intro to finish, or intro can trigger this..
-        setTimeout(() => window.game.isInitialised = window.game.init(window.phoenix), 10000);
+        setTimeout(() => {
+            window.game.isInitialised = window.game.init(window.phoenix);
+        }
+            , 10000);
     })();
 </script>
 </body>

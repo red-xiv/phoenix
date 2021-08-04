@@ -3,7 +3,7 @@ class ImageLoader{
 		this.isLoaded = false;
 	}
     loadAssets(){
-		let numberOfHazards = 9;
+		let numberOfHazards = 6;
 		let numberOfCoins = 6;
 		this.coins = [];
 		this.hazards = [];
