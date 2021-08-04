@@ -267,8 +267,8 @@
     
     function createParticles(numberOfParticles){
         THREE.ImageUtils.crossOrigin = '';
-        //var texture = THREE.ImageUtils.loadTexture("https://aerotwist.com/static/tutorials/creating-particles-with-three-js/images/particle.png")
-        var texture = THREE.ImageUtils.loadTexture("https://threejs.org/examples/textures/particle2.png")
+        var texture = THREE.ImageUtils.loadTexture("https://aerotwist.com/static/tutorials/creating-particles-with-three-js/images/particle.png")
+        //var texture = THREE.ImageUtils.loadTexture("https://threejs.org/examples/textures/particle2.png")
     
         var particles = new THREE.Geometry();
     
